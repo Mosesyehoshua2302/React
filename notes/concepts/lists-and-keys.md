@@ -1,9 +1,9 @@
 # Rendering lists with .map() & keys
 
-**In one line:** To render an array as UI, transform it into JSX with `.map()` and give each item a stable `key`.
+**In one line:** To render a list, turn an array of data into an array of JSX elements with `.map()`, giving each one a stable `key`.
 
 ## Why it matters
-Most UIs are lists — movie cards, comments, search results. React doesn't have a template loop; you use plain JavaScript `.map()` to turn each data item into an element. The `key` lets React track which item is which across re-renders so it updates efficiently and correctly.
+UIs are full of lists — movies, comments, search results. Instead of writing each item by hand, you map over your data so the UI stays in sync with the array automatically.
 
 ## Example
 ```jsx
@@ -20,26 +20,29 @@ function MoviesGrid({ movies }) {
   );
 }
 ```
-`.map()` returns an array of JSX elements; React renders each one.
+`{movies.map(...)}` produces one `<div>` per movie. The `{ }` drops the resulting array right into JSX.
 
-## Keys — the rule people trip on
-- Give the **outermost** element returned by `.map()` a `key`.
-- Use a **stable, unique id** from your data (`movie.id`), not something that changes.
-- **Avoid the array index** as a key when the list can reorder, filter, or have items inserted/removed — it causes wrong updates and lost input state. Index is only OK for a static, never-reordered list.
+## Keys — why they matter
+`key` is a special prop that gives each item a **stable identity** so React can tell which items were added, removed, or reordered — and update the DOM efficiently.
+- Use a **unique, stable ID** from your data: `key={movie.id}`.
+- **Avoid the array index** as key when the list can reorder, filter, or have items inserted/removed — it causes subtle bugs (wrong item state after a change).
 - Keys must be unique **among siblings**, not globally.
+- The `key` goes on the **outermost element** returned by `.map()`.
 
-## Combine with .filter() for search
-```jsx
-{movies
-  .filter((m) => m.title.toLowerCase().includes(query.toLowerCase()))
-  .map((m) => <MovieCard key={m.id} {...m} />)}
-```
+## Common companions
+- `.filter()` before `.map()` to show a subset (e.g. a search result):
+  ```jsx
+  {movies
+    .filter((m) => m.title.toLowerCase().includes(query.toLowerCase()))
+    .map((m) => <MovieCard key={m.id} {...m} />)}
+  ```
+- Empty state: `{movies.length === 0 ? <p>No results</p> : movies.map(...)}`.
 
 ## Key points
-- `.map()` = data → JSX; one element per item.
-- Every list item needs a `key`; make it a stable id.
-- No `key` → React warns in the console; wrong `key` (index) → subtle UI bugs.
+- `.map()` returns a new array; React renders arrays of elements directly.
+- Every mapped element needs a `key`; prefer a real ID over the index.
+- Combine with `.filter()`/`.sort()` for search and ordering.
 
 ## Learn more
 - [Rendering Lists](https://react.dev/learn/rendering-lists)
-- [Keeping list items in order with key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key)
+- [MDN — Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)

@@ -1,11 +1,11 @@
-# useEffect & side effects
+# useEffect & side effects (incl. data fetching)
 
-**In one line:** `useEffect` runs code that reaches *outside* React — fetching data, timers, subscriptions — after the component renders.
+**In one line:** `useEffect` runs code *after* a render to handle "side effects" — things outside rendering, like fetching data, timers, or subscriptions.
 
 ## Why it matters
-Rendering should be pure: given props/state, return JSX and nothing else. Anything else — calling an API, setting a timer, reading `localStorage`, adding a DOM event listener — is a **side effect**, and belongs in `useEffect`. It runs *after* render, so it never blocks the UI from painting.
+Rendering should be pure: given props/state, return JSX. But real apps also need to *reach outside* — load data from a server, set a timer, read `localStorage`. `useEffect` is where that work belongs, so it doesn't run during render and mess up React's model.
 
-## Example: fetch data once when the component mounts
+## Example: fetch data once on mount
 ```jsx
 import { useState, useEffect } from "react";
 
@@ -16,22 +16,22 @@ function MoviesGrid() {
     fetch("movies.json")
       .then((res) => res.json())
       .then((data) => setMovies(data));
-  }, []); // empty array = run once, after first render
+  }, []); // empty array → run once, after first render
 
   return <p>{movies.length} movies loaded</p>;
 }
 ```
 
-## The dependency array (2nd argument) — the important part
+## The dependency array (the second argument)
+It controls **when** the effect re-runs:
 ```jsx
-useEffect(() => { /* ... */ });          // runs after EVERY render
-useEffect(() => { /* ... */ }, []);      // runs ONCE (on mount)
-useEffect(() => { /* ... */ }, [query]); // runs on mount + whenever `query` changes
+useEffect(() => { /* ... */ });          // after EVERY render
+useEffect(() => { /* ... */ }, []);      // once, after first render (mount)
+useEffect(() => { /* ... */ }, [query]); // after mount + whenever `query` changes
 ```
-React re-runs the effect only when a value in the array changes. Include every prop/state value the effect uses, or you'll read stale values.
 
-## Cleanup
-Return a function to undo the effect (cancel timers, remove listeners). React runs it before the next effect and when the component unmounts:
+## Cleanup (return a function)
+If an effect sets up something ongoing (timer, subscription, listener), return a function to tear it down. React runs it before the next effect and on unmount:
 ```jsx
 useEffect(() => {
   const id = setInterval(tick, 1000);
@@ -40,11 +40,11 @@ useEffect(() => {
 ```
 
 ## Key points
-- Effects run **after** the browser paints, not during render.
-- `[]` = once on mount; `[deps]` = re-run when deps change; omitted = every render.
-- Don't `setState` unconditionally with no dep array — it causes an infinite render loop.
-- In React 18 **StrictMode** (dev only), effects run twice on mount to surface missing cleanup — expected, not a bug.
+- Put every value from props/state that the effect uses into the dependency array (avoids "stale" data — see [JS variables](js-variables.md) closures).
+- `[]` = run once on mount; omitting the array = run every render (rarely what you want).
+- Set state inside an effect to store fetched data — that triggers a re-render with the results.
+- Effects run **after** the DOM updates, not during render.
 
 ## Learn more
 - [Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
-- [useEffect — API reference](https://react.dev/reference/react/useEffect)
+- [Fetching data](https://react.dev/learn/you-might-not-need-an-effect#fetching-data)
