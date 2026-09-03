@@ -13,20 +13,23 @@ Refer to these from any codebase. Maintained by the `react-notes` skill.
 - [Data fetching](concepts/data-fetching.md) — load data in useEffect, store in state, render
 - [Controlled inputs, events & filtering](concepts/controlled-inputs.md) — value+onChange loop, deriving a filtered list
 - [Conditional rendering & dynamic className](concepts/conditional-rendering.md) — if / ternary / && , class from data
+- [Lifting state up](concepts/lifting-state-up.md) — sharing state via a common parent; data down, events up
+- [React Router](concepts/react-router.md) — client-side routing: Router, Routes, Route, Link (v6)
 - [JS variables: let / const / var](concepts/js-variables.md) — scope, hoisting, and why it matters in React
 
 ## Files
 - [Typical project structure](files/project-structure.md) — what each file/folder does (CRA & Vite)
 
 ## Suggested learning order
-1. JS variables (let/const/var) → 2. What is React? → 3. JSX → 4. Components → 5. State & useState → 6. useEffect → 7. Lists & keys → 8. Data fetching → 9. Controlled inputs & filtering → 10. Conditional rendering → 11. Project structure
+1. JS variables (let/const/var) → 2. What is React? → 3. JSX → 4. Components → 5. State & useState → 6. useEffect → 7. Lists & keys → 8. Data fetching → 9. Controlled inputs & filtering → 10. Conditional rendering → 11. Lifting state up → 12. React Router → 13. Project structure
 
 ## Topics not yet covered (candidates for future notes)
-Context · React Router · Custom hooks · Lifting state up (sharing state between siblings)
+Context (avoiding prop drilling) · Custom hooks · Dynamic routes & useParams · localStorage persistence
 
 ---
 
 ## Changelog
+- **2026-09-03** — Added **Lifting state up** and **React Router (v6)** notes — prompted by `App.js` holding `watchlist`/`movies` state and `toggleWatchlist`, passing them down to `MoviesGrid` and `Watchlist`, and routing `/` vs `/watchlist` with `BrowserRouter`/`Routes`/`Route`/`Link`.
 - **2026-09-02** — Added **Controlled inputs, events & filtering** and **Conditional rendering & dynamic className** notes — prompted by `MoviesGrid.js` (search box + genre/rating dropdowns driving a `.filter()`) and `Rating.js` (class chosen from the rating value).
 - **2026-09-01** — Added **useEffect & side effects**, **Rendering lists with .map() & keys**, and **Data fetching** notes — prompted by `MoviesGrid.js` fetching `movies.json` in a `useEffect([])` and rendering with `.map()` + `key`.
 - **2026-09-01** — Added a **State & useState** note (owning changeable data, re-rendering, immutable updates, controlled inputs, state vs props) — prompted by `useState` appearing in the project.

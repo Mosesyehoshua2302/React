@@ -8,5 +8,7 @@ function ratingClass(rating) {
 }
 
 export default function Rating({ rating }) {
-  return <p className={`movie-card-rating ${ratingClass(rating)}`}>{rating}</p>;
+  return (
+    <span className={`movie-card-rating ${ratingClass(rating)}`}>{rating}</span>
+  );
 }
