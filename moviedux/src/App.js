@@ -9,13 +9,17 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  // Holds only movie ids, not full movie objects
   const [watchlist, setWatchlist] = useState([]);
+
+  // Load the movie catalog once on mount (empty deps = runs a single time)
   useEffect(() => {
     fetch("movies.json")
       .then((response) => response.json())
       .then((data) => setMovies(data));
   }, []);
 
+  // Add the movie if it's not saved, otherwise remove it
   const toggleWatchlist = (movieId) => {
     setWatchlist((prev) =>
       prev.includes(movieId)

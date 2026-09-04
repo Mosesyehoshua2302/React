@@ -29,6 +29,7 @@ export default function MoviesGrid({ movies, watchlist, toggleWatchlist }) {
     return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
   };
 
+  // Note: these bands differ from Rating.js's coloring (there "ok" is 3–7)
   const matchesRating = (movie, rating) => {
     switch (rating) {
       case "All":
@@ -44,6 +45,7 @@ export default function MoviesGrid({ movies, watchlist, toggleWatchlist }) {
     }
   };
 
+  // Show only movies that pass all three active filters
   const filteredMovies = movies.filter(
     (movie) =>
       matchesGenre(movie, genre) &&

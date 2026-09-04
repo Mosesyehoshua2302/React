@@ -8,6 +8,7 @@ export default function Watchlist({ movies, watchlist, toggleWatchlist }) {
       <h1 className="title">Welcome to Your Watchlist</h1>
       <div className="watchlist">
         {watchlist.map((id) => {
+          // watchlist stores ids only, so look up the full movie by id
           const movie = movies.find((movie) => movie.id === id);
           return (
             <MovieCard

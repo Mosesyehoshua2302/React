@@ -3,6 +3,7 @@ import "../styles.css";
 import Rating from "./Rating";
 
 export default function MovieCard({ movie, isWatchListed, toggleWatchlist }) {
+  // Fall back to a placeholder when a movie's image fails to load
   const handleError = (e) => {
     e.target.src = "images/default.jpg";
   };

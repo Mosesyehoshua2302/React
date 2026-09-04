@@ -12,6 +12,7 @@ Refer to these from any codebase. Maintained by the `react-notes` skill.
 - [Rendering lists with .map() & keys](concepts/lists-and-keys.md) — turning arrays into UI
 - [Data fetching](concepts/data-fetching.md) — load data in useEffect, store in state, render
 - [Controlled inputs, events & filtering](concepts/controlled-inputs.md) — value+onChange loop, deriving a filtered list
+- [Forms & form submission](concepts/forms-and-submission.md) — onSubmit, preventDefault, textarea/radio, reset
 - [Conditional rendering & dynamic className](concepts/conditional-rendering.md) — if / ternary / && , class from data
 - [Lifting state up](concepts/lifting-state-up.md) — sharing state via a common parent; data down, events up
 - [React Router](concepts/react-router.md) — client-side routing: Router, Routes, Route, Link (v6)
@@ -29,6 +30,7 @@ Context (avoiding prop drilling) · Custom hooks · Dynamic routes & useParams �
 ---
 
 ## Changelog
+- **2026-09-03** — Added **Forms & form submission** note — prompted by the new `bug-blaster` project's `TicketForm.js` (`<form onSubmit>` + `preventDefault`, controlled `<textarea>` and radio group, `clearForm` reset).
 - **2026-09-03** — Added **Lifting state up** and **React Router (v6)** notes — prompted by `App.js` holding `watchlist`/`movies` state and `toggleWatchlist`, passing them down to `MoviesGrid` and `Watchlist`, and routing `/` vs `/watchlist` with `BrowserRouter`/`Routes`/`Route`/`Link`.
 - **2026-09-02** — Added **Controlled inputs, events & filtering** and **Conditional rendering & dynamic className** notes — prompted by `MoviesGrid.js` (search box + genre/rating dropdowns driving a `.filter()`) and `Rating.js` (class chosen from the rating value).
 - **2026-09-01** — Added **useEffect & side effects**, **Rendering lists with .map() & keys**, and **Data fetching** notes — prompted by `MoviesGrid.js` fetching `movies.json` in a `useEffect([])` and rendering with `.map()` + `key`.
